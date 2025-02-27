@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ ingredient.name }}</h1>
+
+  <h2>Used in Recipes:</h2>
+  <ul>
+    {% for recipe_ingredient in ingredient.recipe.all %}
+      <li>
+        <a href="{{ recipe_ingredient.recipe.get_absolute_url }}">{{ recipe_ingredient.recipe.name }}</a>
+        ({{ recipe_ingredient.quantity }})
+      </li>
+    {% empty %}
+      <li>This ingredient is not used in any recipes yet.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'ledger:list' %}">Back to Recipe List</a>
+{% endblock %}
