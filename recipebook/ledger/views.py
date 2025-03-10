@@ -1,7 +1,6 @@
 from .models import Recipe, Ingredient
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from .forms import CustomLoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -29,7 +28,7 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
 
 class IngredientDetailView(DetailView):  
     model = Ingredient
-    template_name = 'ingredient_detail.html' 
+    template_name = 'ingredient_detail.html'
 
 
 class CustomLoginView(LoginView):
