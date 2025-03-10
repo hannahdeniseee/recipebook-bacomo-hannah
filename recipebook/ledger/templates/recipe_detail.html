@@ -1,11 +1,19 @@
-{% extends 'base.html' %}
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <title>{% block title %}Recipe Book{% endblock %}</title>
+        <h1>Recipe Book</h1>
+    </head>
+<body>
+    <div id = "content">
+        <h3>{{ object.name }}</h3>
+        <p><strong>Author:</strong> {{ object.author }}</p>
+        <ul>
+            {% for recipe_ingredient in object.ingredients.all %}
+                <li>{{ recipe_ingredient.quantity }} of {{ recipe_ingredient.ingredient.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 
-{% block content %}
-<h3>{{ object.name }}</h3>
-<ul>
-    {% for recipe_ingredient in object.ingredients.all %}
-        <li>{{ recipe_ingredient.quantity }} of {{ recipe_ingredient.ingredient.name }}</li>
-    {% endfor %}
-</ul>
 
-{% endblock %}
+
