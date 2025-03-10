@@ -18,7 +18,7 @@ class Recipe(models.Model):
     name = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
-    update_on = models.DateTimeField(auto_now=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -41,9 +41,9 @@ class RecipeIngredient(models.Model):
    
     def __str__(self):
         return f"{self.quantity} of {self.ingredient.name} in {self.recipe.name}"
-    
-    
-class User(models.Model):
+   
+  
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     bio = models.TextField()
