@@ -1,8 +1,6 @@
 from .models import Recipe, Ingredient
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.contrib.auth.views import LoginView
-from .forms import CustomLoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -30,11 +28,3 @@ class IngredientDetailView(DetailView):
     model = Ingredient
     template_name = 'ingredient_detail.html'
 
-
-class CustomLoginView(LoginView):
-    template_name = 'registration/login.html'
-    authentication_form = CustomLoginForm
-    redirect_authenticated_user = True
-
-    def get_success_url(self):
-        return "/list"
