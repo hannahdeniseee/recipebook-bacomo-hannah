@@ -25,7 +25,18 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["recipe_ingredients"] = self.object.ingredients.all()
+        context["form"] = RecipeImageForm()
         return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()  
+        form = RecipeImageForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.recipe = self.object
+            image.save()  
+            return redirect('ledger:recipe-detail', pk=self.object.pk)
 
 
 class IngredientDetailView(DetailView):  
