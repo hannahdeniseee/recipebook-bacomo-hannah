@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Recipe, Ingredient, RecipeIngredient
+from .models import Recipe, Ingredient, RecipeIngredient, RecipeImage
+
+
+class RecipeImageInline(admin.TabularInline):
+    model = RecipeImage
 
 
 class RecipeAdmin(admin.ModelAdmin):
@@ -7,6 +11,7 @@ class RecipeAdmin(admin.ModelAdmin):
     search_fields = ('name', 'author__username')  
     list_filter = ('created_on', 'updated_on')
     ordering = ('-created_on',)
+    inlines = [RecipeImageInline]
 
 
 class IngredientAdmin(admin.ModelAdmin):

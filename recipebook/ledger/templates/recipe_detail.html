@@ -2,9 +2,13 @@
 
 {% block content %}
 <h3>{{ object.name }}</h3>
+
+{% for image in object.images.all %}
+    <img src = "{{image.image.url}} " alt = "{{ object.name}}">
+{% endfor %}
+
 <ul>
     {% for recipe_ingredient in object.ingredients.all %}
-        <img src="{{ object.task_image.url }}" alt=recipe_ingredient.ingredient.name>
         <li>{{ recipe_ingredient.quantity }} of {{ recipe_ingredient.ingredient.name }}</li>
     {% endfor %}
 </ul>
