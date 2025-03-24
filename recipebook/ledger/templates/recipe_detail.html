@@ -3,10 +3,12 @@
 {% block content %}
 <h3>{{ object.name }}</h3>
 
-<form method="POST" enctype="multipart/form-data" action="{% url 'ledger:recipe-detail' object.pk %}">
+<form method="POST" enctype="multipart/form-data" action="{% url 'ledger:add-recipe-image' object.pk %}">
     {% csrf_token %} 
-    {{ form.as_p }}
+    {{ form }}
     <button type="submit">Upload Image</button>
+
+ 
 </form>
 
   {% if object.images.all %}

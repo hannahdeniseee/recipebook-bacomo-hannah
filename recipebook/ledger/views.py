@@ -48,19 +48,20 @@ class AddRecipeImageView(LoginRequiredMixin, CreateView):
     model = RecipeImage
     template_name = 'recipe_image.html'
     form_class = RecipeImageForm
-
+    
     def form_valid(self, form):
-        recipe_id = self.kwargs['pk'] 
+        recipe_id = self.kwargs['pk']
         form.instance.recipe = Recipe.objects.get(pk=recipe_id)  
-        return super().form_valid(form)
+        self.object = form.save()  
+        return redirect("ledger:recipe-detail", pk=recipe_id)  
 
 
 class AddRecipeView(LoginRequiredMixin, CreateView):
     model = Recipe
     template_name = 'recipe_add.html'
     form_class = RecipeForm
-
+    
     def form_valid(self, form):
-        recipe_id = self.kwargs.get('pk') 
-        form.instance.recipe = Recipe.objects.get(pk=recipe_id)  
-        return super().form_valid(form)
+        self.object = form.save()  
+        return redirect("ledger:recipe-detail", pk=self.object.pk)  
+    

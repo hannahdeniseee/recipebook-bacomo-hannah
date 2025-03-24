@@ -2,10 +2,16 @@
 
 {% block content %}
   <h2>Add a New Recipe</h2>
-  <form method="post">
+
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Create Recipe</button>
+    {{ form }}
+    <button type="submit">Add Recipe</button>
   </form>
-  <a href="{% url 'ledger:recipe-list' %}">Back to Recipes</a>
+
+  {% if object %}
+    <a href="{% url 'ledger:add-recipe-image' object.pk %}">Upload Image</a>
+{% endif %}
+
+  <a href="{% url 'ledger:recipe-list' %}">Back to Recipe List</a>
 {% endblock %}
