@@ -62,6 +62,7 @@ class AddRecipeView(LoginRequiredMixin, CreateView):
     form_class = RecipeForm
     
     def form_valid(self, form):
+        form.instance.author = self.request.user 
         self.object = form.save()  
         return redirect("ledger:recipe-detail", pk=self.object.pk)  
     

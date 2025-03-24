@@ -2,12 +2,11 @@
 
 {% block content %}
 <h3>{{ object.name }}</h3>
+<p>{{ object.author.username }}</p>
 
-<form method="POST" enctype="multipart/form-data" action="{% url 'ledger:add-recipe-image' object.pk %}">
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %} 
     {{ form }}
-    <button type="submit">Upload Image</button>
-
  
 </form>
 
