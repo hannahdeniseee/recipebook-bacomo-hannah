@@ -3,9 +3,12 @@
 {% block content %}
 <h3>{{ object.name }}</h3>
 
-{% for image in object.images.all %}
-    <img src = "{{image.image.url}} " alt = "{{ object.name}}">
-{% endfor %}
+{% if object.images.all %}
+    {% for image in object.images.all %}
+        <img src = "{{image.image.url}} " alt = "{{ image.description }}">
+    {% endfor %}
+{% else %}
+{% endif %}
 
 <ul>
     {% for recipe_ingredient in object.ingredients.all %}
@@ -13,5 +16,6 @@
     {% endfor %}
 </ul>
 <a href="{% url 'ledger:recipe-list' %}">Back to Recipe List</a>
+<a href="{% url 'ledger:recipe-add-image' object.pk %}">Upload Image</a>
 
 {% endblock %}
