@@ -3,8 +3,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from .forms import RecipeImageForm, RecipeForm
 
 
@@ -25,7 +24,6 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["recipe_ingredients"] = self.object.ingredients.all()
-        context["form"] = RecipeImageForm()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -48,21 +46,23 @@ class AddRecipeImageView(LoginRequiredMixin, CreateView):
     model = RecipeImage
     template_name = 'recipe_image.html'
     form_class = RecipeImageForm
-    
+
     def form_valid(self, form):
-        recipe_id = self.kwargs['pk']
-        form.instance.recipe = Recipe.objects.get(pk=recipe_id)  
-        self.object = form.save()  
-        return redirect("ledger:recipe-detail", pk=recipe_id)  
+        recipe_id = self.kwargs.get('pk')
+        form.instance.recipe = Recipe.objects.get(pk=recipe_id)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        recipe_id = self.kwargs.get('pk')
+        return f"/{recipe_id}/detail/"
 
 
 class AddRecipeView(LoginRequiredMixin, CreateView):
     model = Recipe
     template_name = 'recipe_add.html'
     form_class = RecipeForm
-    
+
     def form_valid(self, form):
         form.instance.author = self.request.user 
         self.object = form.save()  
-        return redirect("ledger:recipe-detail", pk=self.object.pk)  
-    
+        return redirect("ledger:recipe-detail", pk=self.object.pk)

@@ -11,7 +11,7 @@
 
   {% if object %}
     <a href="{% url 'ledger:add-recipe-image' object.pk %}">Upload Image</a>
-{% endif %}
+  {% endif %}
 
-  <a href="{% url 'ledger:recipe-list' %}" >Back to Recipe List</a>
+
 {% endblock %}

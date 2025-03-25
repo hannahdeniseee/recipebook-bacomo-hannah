@@ -5,9 +5,10 @@
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    <a href="{% url 'ledger:recipe-list' %}">Back to Recipe</a>
     {{ form.as_p }}
-    <button type="submit">Upload</button>
+    <button type="submit">Submit</button>
 </form>
 
-<a href="{% url 'ledger:recipe-detail' recipe.pk %}">Back to Recipe</a>
+
 {% endblock %}

@@ -7,7 +7,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ledger.urls', namespace="recipes")),
-    #path('recipe/', include('ledger.urls', namespace="recipes")),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
 

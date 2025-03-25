@@ -3,24 +3,24 @@
 {% block content %}
 <h3>{{ object.name }}</h3>
 <p>{{ object.author.username }}</p>
+<a href="{% url 'ledger:recipe-list' %}">Back to Recipe</a>
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %} 
-    {{ form }}
- 
-</form>
+<div>
+    <a href="{% url 'ledger:add-recipe-image' pk=recipe.pk %}">
+        <button type="submit">Upload an Image</button>
+    </a>
+</div>
 
-  {% if object.images.all %}
+
+{% if object.images.all %}
         {% for image in object.images.all %}
             <img src = "{{image.image.url}} " alt = "{{ image.description }}">
         {% endfor %}
 {% endif %}
+
 <ul>
     {% for recipe_ingredient in object.ingredients.all %}
         <li>{{ recipe_ingredient.quantity }} of {{ recipe_ingredient.ingredient.name }}</li>
     {% endfor %}
 </ul>
-
-<a href="{% url 'ledger:recipe-list' %}">Back to Recipe List</a>
-
 {% endblock %}  

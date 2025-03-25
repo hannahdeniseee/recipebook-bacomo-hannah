@@ -34,7 +34,7 @@ class RecipeImage(models.Model):
         related_name='images')
     
     def get_absolute_url(self):
-        return reverse("ledger:recipe-detail", kwargs={"pk": self.recipe.pk})
+        return reverse("ledger:add-recipe-image", kwargs={"pk": self.recipe.pk})
 
 
 class RecipeIngredient(models.Model):
